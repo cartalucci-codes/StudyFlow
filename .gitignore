@@ -1,0 +1,17 @@
+*.iml
+.gradle/
+/local.properties
+/.idea/
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+google-services.json
+
+# api/ subfolder (Node.js backend)
+api/node_modules/
+api/.env
+api/*.sqlite
+api/coverage/

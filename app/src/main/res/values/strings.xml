@@ -1,0 +1,46 @@
+<resources>
+    <string name="app_name">StudyFlow</string>
+
+    <!-- Replace with the WEB (not Android) OAuth client ID from Google Cloud Console.
+         See the SSO setup steps in the README. Not translatable, so no equivalent
+         entry is needed in values-af or values-zu. -->
+    <string name="default_web_client_id" translatable="false">REPLACE_WITH_YOUR_WEB_CLIENT_ID.apps.googleusercontent.com</string>
+
+    <string name="hint_name">Full name</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_confirm_password">Confirm password</string>
+    <string name="hint_task_title">Task title</string>
+    <string name="hint_task_subject">Subject (e.g. Physics)</string>
+
+    <string name="action_login">Log In</string>
+    <string name="action_google_signin">Sign in with Google</string>
+    <string name="action_register_link">Don\'t have an account? Register</string>
+    <string name="action_register">Create Account</string>
+    <string name="action_add_task">+ Add Task</string>
+    <string name="action_save_task">Save Task</string>
+    <string name="action_pick_due_date">Pick due date</string>
+    <string name="action_save">Save</string>
+    <string name="action_logout">Log Out</string>
+    <string name="action_start">Start</string>
+    <string name="action_pause">Pause</string>
+    <string name="action_resume">Resume</string>
+    <string name="action_end_session">End Session</string>
+
+    <string name="nav_calendar">Calendar</string>
+    <string name="nav_timer">Timer</string>
+    <string name="nav_settings">Settings</string>
+
+    <string name="label_priority">Priority</string>
+    <string name="label_language">Interface language</string>
+    <string name="label_dark_theme">Dark theme</string>
+    <string name="label_notifications">Enable notifications</string>
+    <string name="label_offline_note">Saved offline instantly, syncs when online</string>
+
+    <string name="greeting_format">Hi, %1$s</string>
+
+    <plurals name="tasks_due_today">
+        <item quantity="one">%d task due today</item>
+        <item quantity="other">%d tasks due today</item>
+    </plurals>
+</resources>

@@ -1,0 +1,41 @@
+<resources>
+    <string name="app_name">StudyFlow</string>
+
+    <string name="hint_name">Igama eliphelele</string>
+    <string name="hint_email">I-imeyili</string>
+    <string name="hint_password">Iphasiwedi</string>
+    <string name="hint_confirm_password">Qinisekisa iphasiwedi</string>
+    <string name="hint_task_title">Isihloko somsebenzi</string>
+    <string name="hint_task_subject">Isifundo (isb. Ifiziksi)</string>
+
+    <string name="action_login">Ngena</string>
+    <string name="action_google_signin">Ngena nge-Google</string>
+    <string name="action_register_link">Awunayo i-akhawunti? Bhalisa</string>
+    <string name="action_register">Dala I-akhawunti</string>
+    <string name="action_add_task">+ Engeza Umsebenzi</string>
+    <string name="action_save_task">Gcina Umsebenzi</string>
+    <string name="action_pick_due_date">Khetha usuku lokuphela</string>
+    <string name="action_save">Gcina</string>
+    <string name="action_logout">Phuma</string>
+    <string name="action_start">Qala</string>
+    <string name="action_pause">Misa isikhashana</string>
+    <string name="action_resume">Qhubeka</string>
+    <string name="action_end_session">Qeda Iseshini</string>
+
+    <string name="nav_calendar">Ikhalenda</string>
+    <string name="nav_timer">Isikhathi</string>
+    <string name="nav_settings">Izilungiselelo</string>
+
+    <string name="label_priority">Okubalulekile</string>
+    <string name="label_language">Ulimi lokusebenzisana</string>
+    <string name="label_dark_theme">Itimu emnyama</string>
+    <string name="label_notifications">Vumela izaziso</string>
+    <string name="label_offline_note">Kugcinwe ngokushesha ngaphandle kwe-inthanethi, kuvumelaniswa uma kukhona i-inthanethi</string>
+
+    <string name="greeting_format">Sawubona, %1$s</string>
+
+    <plurals name="tasks_due_today">
+        <item quantity="one">%d umsebenzi ophelelwa namuhla</item>
+        <item quantity="other">%d imisebenzi ephelelwa namuhla</item>
+    </plurals>
+</resources>
