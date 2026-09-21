@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="tasks_due_today">
+        <item quantity="one">%d taak verval vandag</item>
+        <item quantity="other">%d take verval vandag</item>
+    </plurals>
+    <string name="action_add_task">+ Voeg Taak By</string>
+    <string name="action_end_session">Beëindig Sessie</string>
+    <string name="action_google_signin">Meld aan met Google</string>
+    <string name="action_login">Meld Aan</string>
+    <string name="action_logout">Meld Af</string>
+    <string name="action_pause">Pouseer</string>
+    <string name="action_pick_due_date">Kies vervaldatum</string>
+    <string name="action_register">Skep Rekening</string>
+    <string name="action_register_link">Het jy nie \'n rekening nie? Registreer</string>
+    <string name="action_resume">Hervat</string>
+    <string name="action_save">Stoor</string>
+    <string name="action_save_task">Stoor Taak</string>
+    <string name="action_start">Begin</string>
+    <string name="app_name">StudyFlow</string>
+    <string name="greeting_format">Hallo, %1$s</string>
+    <string name="hint_confirm_password">Bevestig wagwoord</string>
+    <string name="hint_email">E-pos</string>
+    <string name="hint_name">Volle naam</string>
+    <string name="hint_password">Wagwoord</string>
+    <string name="hint_task_subject">Vak (bv. Fisika)</string>
+    <string name="hint_task_title">Taak titel</string>
+    <string name="label_dark_theme">Donker tema</string>
+    <string name="label_language">Koppelvlaktaal</string>
+    <string name="label_notifications">Aktiveer kennisgewings</string>
+    <string name="label_offline_note">Onmiddellik vanlyn gestoor, sinkroniseer wanneer aanlyn</string>
+    <string name="label_priority">Prioriteit</string>
+    <string name="nav_calendar">Kalender</string>
+    <string name="nav_settings">Instellings</string>
+    <string name="nav_timer">Tydhouer</string>
+</resources>

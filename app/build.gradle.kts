@@ -18,7 +18,7 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         // Point this at your hosted StudyFlow API (see studyflow-api/README.md)
-        buildConfigField("String", "BASE_URL", "\"https://studyflow-api.azurewebsites.net/\"")
+        buildConfigField("String", "BASE_URL", "\"http://10.0.2.2:3000/\"")
     }
 
     buildTypes {

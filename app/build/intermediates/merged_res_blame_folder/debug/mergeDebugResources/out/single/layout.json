@@ -1,0 +1,30 @@
+[
+    {
+        "merged": "com.studyflow.app-mergeDebugResources-50:/layout/activity_register.xml",
+        "source": "com.studyflow.app-main-53:/layout/activity_register.xml"
+    },
+    {
+        "merged": "com.studyflow.app-mergeDebugResources-50:/layout/activity_login.xml",
+        "source": "com.studyflow.app-main-53:/layout/activity_login.xml"
+    },
+    {
+        "merged": "com.studyflow.app-mergeDebugResources-50:/layout/activity_add_edit_task.xml",
+        "source": "com.studyflow.app-main-53:/layout/activity_add_edit_task.xml"
+    },
+    {
+        "merged": "com.studyflow.app-mergeDebugResources-50:/layout/activity_task_list.xml",
+        "source": "com.studyflow.app-main-53:/layout/activity_task_list.xml"
+    },
+    {
+        "merged": "com.studyflow.app-mergeDebugResources-50:/layout/activity_study_timer.xml",
+        "source": "com.studyflow.app-main-53:/layout/activity_study_timer.xml"
+    },
+    {
+        "merged": "com.studyflow.app-mergeDebugResources-50:/layout/activity_settings.xml",
+        "source": "com.studyflow.app-main-53:/layout/activity_settings.xml"
+    },
+    {
+        "merged": "com.studyflow.app-mergeDebugResources-50:/layout/activity_home.xml",
+        "source": "com.studyflow.app-main-53:/layout/activity_home.xml"
+    }
+]
