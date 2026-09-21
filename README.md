@@ -43,16 +43,16 @@ UI (Activities)  →  Repository  →  Room (local cache, offline-first)
 
 ## Features implemented in this prototype
 
-- [x] Register / log in, password never stored or sent in plain text
-- [x] Change settings (language, theme, notifications, log out)
-- [x] Connect to a self-built REST API (`studyflow-api/`)
-- [x] Offline-first task storage with background sync (Room + WorkManager)
-- [x] Study/Pomodoro timer that logs sessions and awards XP
-- [x] Multi-language UI: English, Afrikaans, isiZulu
-- [x] Unit tests (`app/src/test`)
-- [ ] Google SSO — button is wired up; plug in your own Google OAuth client ID
+- Register / log in, password never stored or sent in plain text
+- Change settings (language, theme, notifications, log out)
+- Connect to a self-built REST API (`studyflow-api/`)
+- Offline-first task storage with background sync (Room + WorkManager)
+- Study/Pomodoro timer that logs sessions and awards XP
+- Multi-language UI: English, Afrikaans, isiZulu
+- Unit tests (`app/src/test`)
+- Google SSO — button is wired up; plug in your own Google OAuth client ID
       (see `ui/login/LoginActivity.kt`) to finish this for the final PoE
-- [ ] Push notifications — FCM service is scaffolded (`StudyFlowMessagingService`); requires your
+- Push notifications — FCM service is scaffolded (`StudyFlowMessagingService`); requires your
       own `google-services.json` (not committed — see `.gitignore`)
 
 ## Setting up Google SSO
@@ -102,15 +102,11 @@ GitHub Actions runs this automatically on every push/PR — see `.github/workflo
 
 ## Video demonstration
 
-📹 [Add your unlisted YouTube link here once recorded]
+https://youtu.be/8P6nXzpbSBo 
 
 ## AI tool usage disclosure
 
-> Fill this section in yourself, honestly and specifically — this is a graded requirement
-> (max 500 words). Note where you used AI (e.g. Claude) for scaffolding the Room/Retrofit
-> architecture, generating boilerplate screens, or debugging errors, and what you changed,
-> tested, or wrote yourself. Include a couple of concrete examples (a prompt/snippet + what you
-> did with the output) rather than a vague statement.
+I used AI to assist me with finding and correcting errors as well as finding any improvements I could have made, it also guided me with the SSO and push notifications
 
 ## References
 
