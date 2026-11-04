@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Languages StudyFlow is translated into. Lets Android 13+ list them under
+     Settings > Apps > StudyFlow > Language, and tells Google Play which languages are supported. -->
+<locale-config xmlns:android="http://schemas.android.com/apk/res/android">
+    <locale android:name="en" />
+    <locale android:name="af" />
+    <locale android:name="zu" />
+</locale-config>

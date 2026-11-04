@@ -1,46 +1,147 @@
 <resources>
-    <string name="app_name">StudyFlow</string>
+    <string name="app_name" translatable="false">StudyFlow</string>
+    <string name="tagline">Plan it. Focus. Grow.</string>
 
-    <!-- Replace with the WEB (not Android) OAuth client ID from Google Cloud Console.
-         See the SSO setup steps in the README. Not translatable, so no equivalent
-         entry is needed in values-af or values-zu. -->
-    <string name="default_web_client_id" translatable="false">REPLACE_WITH_YOUR_WEB_CLIENT_ID.apps.googleusercontent.com</string>
-
+    <!-- Hints & labels -->
     <string name="hint_name">Full name</string>
     <string name="hint_email">Email</string>
     <string name="hint_password">Password</string>
     <string name="hint_confirm_password">Confirm password</string>
+    <string name="hint_display_name">Display name</string>
     <string name="hint_task_title">Task title</string>
     <string name="hint_task_subject">Subject (e.g. Physics)</string>
+    <string name="hint_task_description">Notes (optional)</string>
+    <string name="helper_password_rules">At least 8 characters, with a letter and a number</string>
 
-    <string name="action_login">Log In</string>
+    <!-- Actions -->
+    <string name="action_login">Log in</string>
     <string name="action_google_signin">Sign in with Google</string>
     <string name="action_register_link">Don\'t have an account? Register</string>
-    <string name="action_register">Create Account</string>
-    <string name="action_add_task">+ Add Task</string>
-    <string name="action_save_task">Save Task</string>
-    <string name="action_pick_due_date">Pick due date</string>
-    <string name="action_save">Save</string>
-    <string name="action_logout">Log Out</string>
+    <string name="action_register">Create account</string>
+    <string name="action_add_task">+ Add task</string>
+    <string name="action_save_task">Save task</string>
+    <string name="action_save">Save settings</string>
+    <string name="action_logout">Log out</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_cancel">Cancel</string>
     <string name="action_start">Start</string>
     <string name="action_pause">Pause</string>
     <string name="action_resume">Resume</string>
-    <string name="action_end_session">End Session</string>
+    <string name="action_end_session">End session</string>
+    <string name="action_keep_going">Keep going</string>
+    <string name="action_show_all">Show all</string>
+    <string name="action_sync_now">Sync now</string>
+    <string name="action_test_notification">Send me a test notification</string>
+    <string name="action_delete_account">Delete my account</string>
 
+    <!-- Titles & navigation -->
+    <string name="title_register">Create account</string>
+    <string name="title_add_task">Add task</string>
+    <string name="title_edit_task">Edit task</string>
+    <string name="title_timer">Focus timer</string>
     <string name="nav_calendar">Calendar</string>
     <string name="nav_timer">Timer</string>
     <string name="nav_settings">Settings</string>
+    <string name="section_today">Today &amp; overdue</string>
+    <string name="section_profile">Profile</string>
+    <string name="section_appearance">Appearance</string>
+    <string name="section_notifications">Notifications</string>
+    <string name="section_sync">Offline data &amp; sync</string>
 
+    <!-- Task form -->
+    <string name="label_due">Due</string>
     <string name="label_priority">Priority</string>
-    <string name="label_language">Interface language</string>
+    <string name="priority_low">Low</string>
+    <string name="priority_med">Medium</string>
+    <string name="priority_high">High</string>
+    <string name="label_reminder">Remind me 1 hour before</string>
+    <string name="label_offline_note">Saved on your phone instantly, syncs when you\'re online</string>
+
+    <!-- Settings -->
+    <string name="label_avatar">Avatar</string>
+    <string name="label_language">Language</string>
     <string name="label_dark_theme">Dark theme</string>
-    <string name="label_notifications">Enable notifications</string>
-    <string name="label_offline_note">Saved offline instantly, syncs when online</string>
+    <string name="label_notifications_deadlines">Deadline alerts</string>
+    <string name="label_notifications_daily">Daily study reminder</string>
+    <string name="label_daily_time">Reminder time: %1$s</string>
+    <string name="label_version">StudyFlow version %1$s</string>
 
+    <!-- Timer -->
+    <string name="label_link_task">Study session for</string>
+    <string name="timer_free_session">Free study session</string>
+    <string name="label_duration">Length</string>
+    <string name="label_minutes">%d min</string>
+    <string name="dialog_leave_session_title">End this session?</string>
+    <string name="dialog_leave_session_message">Your progress so far will be saved as an unfinished session.</string>
+
+    <!-- Home -->
     <string name="greeting_format">Hi, %1$s</string>
+    <string name="empty_today">Nothing due today 🎉</string>
+    <string name="empty_tasks">No tasks here yet</string>
+    <string name="xp_format">%1$d XP</string>
+    <string name="level_format">Level %1$d</string>
+    <string name="xp_to_next">%1$d XP to level %2$d</string>
+    <string name="badges_none">Finish a focus session to earn your first badge</string>
+    <string name="badge_first">First session</string>
+    <string name="badge_streak_3">3-day streak</string>
+    <string name="badge_streak_7">7-day streak</string>
+    <string name="badge_streak_30">30-day streak</string>
+    <string name="calendar_showing_all">All tasks</string>
+    <string name="calendar_showing_day">Due on %1$s</string>
 
+    <!-- Sync status -->
+    <string name="status_offline_banner">You\'re offline. Changes are saved on your phone and will sync automatically.</string>
+    <string name="status_synced">All changes synced</string>
+    <string name="status_never_synced">Not synced yet</string>
+    <string name="status_last_sync">Last synced: %1$s</string>
+
+    <!-- Messages -->
+    <string name="error_required">This field is required</string>
+    <string name="error_email_invalid">Enter a valid email address</string>
+    <string name="error_password_weak">Use at least 8 characters, with a letter and a number</string>
+    <string name="error_password_mismatch">Passwords do not match</string>
+    <string name="error_title_required">Give the task a title (max 150 characters)</string>
+    <string name="msg_invalid_credentials">Incorrect email or password</string>
+    <string name="msg_email_taken">That email is already registered</string>
+    <string name="msg_invalid_input">Please check your details and try again</string>
+    <string name="msg_network_error">Can\'t reach the server. Check your connection and try again.</string>
+    <string name="msg_server_error">Something went wrong on our side. Please try again.</string>
+    <string name="msg_google_failed">Google sign-in failed (code %1$d)</string>
+    <string name="msg_google_no_token">Google did not return an ID token</string>
+    <string name="msg_google_server_failed">Google sign-in was rejected by the server</string>
+    <string name="msg_not_logged_in">Please log in again</string>
+    <string name="msg_task_saved">Task saved. It syncs when you\'re online.</string>
+    <string name="msg_task_deleted">Task deleted</string>
+    <string name="msg_task_done_xp">Task done! +%1$d XP</string>
+    <string name="msg_settings_saved">Settings saved</string>
+    <string name="msg_sync_started">Sync started</string>
+    <string name="msg_session_logged">Session complete! +%1$d XP</string>
+    <string name="msg_session_ended_early">Session ended early</string>
+    <string name="msg_test_notification_sent">Test notification sent. It should arrive in a few seconds.</string>
+    <string name="msg_push_not_configured">Push notifications are not set up on the server</string>
+    <string name="msg_no_device_registered">This phone is not registered for push yet. Reopen the app and try again.</string>
+    <string name="dialog_delete_task_title">Delete this task?</string>
+    <string name="dialog_delete_account_title">Delete your account?</string>
+    <string name="dialog_delete_account_message">This permanently deletes your account, tasks, study sessions and badges from our servers. It cannot be undone.</string>
+    <string name="msg_account_deleted">Your account has been deleted</string>
+
+    <!-- Notifications -->
+    <string name="channel_name">StudyFlow reminders</string>
+    <string name="channel_description">Task deadlines and daily study reminders</string>
+    <string name="notif_daily_title">Time to study 📚</string>
+    <string name="notif_daily_body">Open StudyFlow and start a focus session.</string>
+
+    <!-- Plurals -->
     <plurals name="tasks_due_today">
         <item quantity="one">%d task due today</item>
         <item quantity="other">%d tasks due today</item>
+    </plurals>
+    <plurals name="streak_days">
+        <item quantity="one">%d-day streak</item>
+        <item quantity="other">%d-day streak</item>
+    </plurals>
+    <plurals name="sync_pending">
+        <item quantity="one">%d change waiting to sync</item>
+        <item quantity="other">%d changes waiting to sync</item>
     </plurals>
 </resources>

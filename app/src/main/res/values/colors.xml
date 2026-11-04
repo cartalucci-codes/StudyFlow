@@ -4,4 +4,6 @@
     <color name="teal_900">#004D40</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
+    <color name="overdue">#D32F2F</color>
+    <color name="text_secondary">#616161</color>
 </resources>
