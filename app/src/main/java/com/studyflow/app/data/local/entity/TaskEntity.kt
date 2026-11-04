@@ -9,8 +9,12 @@ enum class Priority { Low, Med, High }
 enum class TaskStatus { Open, Done }
 
 /**
- * Local Room cache of a task. Everything is written here first (offline-first),
- * then a WorkManager job pushes PENDING rows to the StudyFlow REST API.
+ * Local Room copy of a task. Everything the student does is written here FIRST (offline-first),
+ * flagged PENDING, and a WorkManager job pushes it to the REST API as soon as there is a connection.
+ *
+ * The id is generated on the phone so the server can treat repeated pushes as the same task.
+ * [deleted] is a tombstone: a task deleted while offline stays in Room (hidden from the UI)
+ * until the delete has been sent to the server.
  */
 @Entity(tableName = "tasks")
 data class TaskEntity(
@@ -23,5 +27,6 @@ data class TaskEntity(
     val priority: Priority = Priority.Med,
     val status: TaskStatus = TaskStatus.Open,
     val reminderTime: Long? = null,
-    val syncStatus: SyncStatus = SyncStatus.PENDING
+    val syncStatus: SyncStatus = SyncStatus.PENDING,
+    val deleted: Boolean = false
 )

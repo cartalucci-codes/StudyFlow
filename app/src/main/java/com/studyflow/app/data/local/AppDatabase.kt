@@ -35,7 +35,7 @@ class Converters {
 
 @Database(
     entities = [TaskEntity::class, UserEntity::class, StudySessionEntity::class],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 @TypeConverters(Converters::class)
@@ -53,7 +53,11 @@ abstract class AppDatabase : RoomDatabase() {
                     context.applicationContext,
                     AppDatabase::class.java,
                     "studyflow.db"
-                ).build().also { INSTANCE = it }
+                )
+                    // v2 added the TaskEntity.deleted tombstone column. Tasks live on the server,
+                    // so a rebuilt local cache simply re-downloads on the next sync.
+                    .fallbackToDestructiveMigration()
+                    .build().also { INSTANCE = it }
             }
     }
 }

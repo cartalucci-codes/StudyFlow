@@ -11,16 +11,19 @@ object RetrofitClient {
 
     val api: ApiService by lazy {
         val logging = HttpLoggingInterceptor().apply {
-            level = if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE
+            // Only log request/response bodies in debug builds - they can contain tokens.
+            level = if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BASIC else HttpLoggingInterceptor.Level.NONE
         }
+        // Generous timeouts: a free-tier Azure App Service can take ~30s to wake up after idling.
         val client = OkHttpClient.Builder()
             .addInterceptor(logging)
-            .connectTimeout(15, TimeUnit.SECONDS)
-            .readTimeout(15, TimeUnit.SECONDS)
+            .connectTimeout(60, TimeUnit.SECONDS)
+            .readTimeout(60, TimeUnit.SECONDS)
+            .writeTimeout(60, TimeUnit.SECONDS)
             .build()
 
         Retrofit.Builder()
-            .baseUrl(BuildConfig.BASE_URL) // set in app/build.gradle.kts, points to the hosted studyflow-api
+            .baseUrl(BuildConfig.BASE_URL)
             .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
