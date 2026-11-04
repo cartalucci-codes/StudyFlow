@@ -1,8 +1,11 @@
 {
   "name": "studyflow-api",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "StudyFlow REST API - Node.js + Express backend for the StudyFlow Android app (OPSC6312 PoE)",
   "main": "server.js",
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js",
@@ -18,12 +21,19 @@
     "jsonwebtoken": "^9.0.2",
     "node-cron": "^3.0.3",
     "sequelize": "^6.37.3",
-    "sqlite3": "^5.1.7",
+    "tedious": "^16.7.1",
     "uuid": "^9.0.1"
+  },
+  "optionalDependencies": {
+    "sqlite3": "^5.1.7"
   },
   "devDependencies": {
     "jest": "^29.7.0",
     "nodemon": "^3.1.4",
     "supertest": "^7.0.0"
+  },
+  "allowScripts": {
+    "protobufjs@7.6.6": true,
+    "sqlite3@5.1.7": true
   }
 }

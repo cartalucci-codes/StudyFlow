@@ -1,43 +1,49 @@
 const cron = require('node-cron');
 const { Op } = require('sequelize');
-const { Task, DeviceToken } = require('../models');
+const { Task } = require('../models');
 const { messaging } = require('../config/firebaseAdmin');
+const { sendToUser } = require('../services/push');
 
-/**
- * Runs every 15 minutes: finds tasks due within the next hour that haven't been
- * reminded about yet, and pushes a notification to that user's registered devices.
- * Matches Planning & Design doc, Section 5: "a scheduled server-side job ... triggers
- * FCM pushes for upcoming deadlines and daily study reminders."
- */
+const MINUTE = 60 * 1000;
+
+// Runs every 15 minutes and pushes:
+//   - "task due soon" for open tasks due 45-60 minutes from now, and
+//   - "deadline missed" for open tasks that became overdue in the last 15 minutes.
+// Each window is exactly one cron interval wide, so every task is notified about once without
+// needing to store any extra "already reminded" state.
+async function runReminderCheck(now = Date.now()) {
+  const dueSoon = await Task.findAll({
+    where: {
+      status: 'Open',
+      dueDate: { [Op.gte]: new Date(now + 45 * MINUTE), [Op.lt]: new Date(now + 60 * MINUTE) },
+    },
+  });
+  for (const task of dueSoon) {
+    await sendToUser(task.userId, 'Task due soon', `"${task.title}" is due within the hour.`);
+  }
+
+  const missed = await Task.findAll({
+    where: {
+      status: 'Open',
+      dueDate: { [Op.gte]: new Date(now - 15 * MINUTE), [Op.lt]: new Date(now) },
+    },
+  });
+  for (const task of missed) {
+    await sendToUser(task.userId, 'Deadline missed', `"${task.title}" was due and is still open.`);
+  }
+  return { dueSoon: dueSoon.length, missed: missed.length };
+}
+
 function startReminderJob() {
   if (!messaging) {
     console.log('Reminder job not started - push notifications are not configured.');
     return;
   }
-
-  cron.schedule('*/15 * * * *', async () => {
-    const now = new Date();
-    const inOneHour = new Date(now.getTime() + 60 * 60 * 1000);
-
-    const dueSoonTasks = await Task.findAll({
-      where: { dueDate: { [Op.between]: [now, inOneHour] }, status: 'Open' },
-    });
-
-    for (const task of dueSoonTasks) {
-      const tokens = await DeviceToken.findAll({ where: { userId: task.userId } });
-      if (tokens.length === 0) continue;
-
-      await messaging.sendEachForMulticast({
-        tokens: tokens.map((t) => t.fcmToken),
-        notification: {
-          title: 'Task due soon',
-          body: `"${task.title}" is due within the hour.`,
-        },
-      });
-    }
+  cron.schedule('*/15 * * * *', () => {
+    runReminderCheck().catch((err) => console.error('Reminder job failed:', err));
   });
-
   console.log('Reminder job scheduled (every 15 minutes).');
 }
 
 module.exports = startReminderJob;
+module.exports.runReminderCheck = runReminderCheck;

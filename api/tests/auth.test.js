@@ -22,9 +22,30 @@ describe('Auth endpoints', () => {
     expect(res.body.user.passwordHash).toBeUndefined(); // never leaks the hash
   });
 
-  test('rejects duplicate email registration', async () => {
-    const res = await request(app).post('/api/auth/register').send(testUser);
+  test('stores a bcrypt hash, never the plain text password', async () => {
+    const { User } = require('../models');
+    const user = await User.findOne({ where: { email: testUser.email } });
+    expect(user.passwordHash).not.toBe(testUser.password);
+    expect(user.passwordHash.startsWith('$2')).toBe(true); // bcrypt prefix
+  });
+
+  test('rejects duplicate email registration (case-insensitive)', async () => {
+    const res = await request(app)
+      .post('/api/auth/register')
+      .send({ ...testUser, email: 'TEST@studyflow.dev' });
     expect(res.statusCode).toBe(409);
+  });
+
+  test('rejects invalid email, short password and missing name', async () => {
+    const bad = [
+      { name: 'A', email: 'not-an-email', password: 'Password123!' },
+      { name: 'A', email: 'a@b.co', password: 'short' },
+      { name: '', email: 'c@d.co', password: 'Password123!' },
+    ];
+    for (const body of bad) {
+      const res = await request(app).post('/api/auth/register').send(body);
+      expect(res.statusCode).toBe(400);
+    }
   });
 
   test('logs in with correct credentials', async () => {
@@ -42,5 +63,13 @@ describe('Auth endpoints', () => {
       password: 'wrong-password',
     });
     expect(res.statusCode).toBe(401);
+  });
+
+  test('malformed JSON returns 400 instead of crashing', async () => {
+    const res = await request(app)
+      .post('/api/auth/login')
+      .set('Content-Type', 'application/json')
+      .send('{"email": ');
+    expect(res.statusCode).toBe(400);
   });
 });
