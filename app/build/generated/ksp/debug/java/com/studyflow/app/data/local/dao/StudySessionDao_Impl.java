@@ -3,7 +3,10 @@ package com.studyflow.app.data.local.dao;
 import android.database.Cursor;
 import android.os.CancellationSignal;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.lifecycle.LiveData;
 import androidx.room.CoroutinesRoom;
+import androidx.room.EntityDeletionOrUpdateAdapter;
 import androidx.room.EntityInsertionAdapter;
 import androidx.room.RoomDatabase;
 import androidx.room.RoomSQLiteQuery;
@@ -15,6 +18,7 @@ import com.studyflow.app.data.local.entity.StudySessionEntity;
 import com.studyflow.app.data.local.entity.SyncStatus;
 import java.lang.Class;
 import java.lang.Exception;
+import java.lang.Integer;
 import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
@@ -35,6 +39,8 @@ public final class StudySessionDao_Impl implements StudySessionDao {
   private final EntityInsertionAdapter<StudySessionEntity> __insertionAdapterOfStudySessionEntity;
 
   private final Converters __converters = new Converters();
+
+  private final EntityDeletionOrUpdateAdapter<StudySessionEntity> __updateAdapterOfStudySessionEntity;
 
   public StudySessionDao_Impl(@NonNull final RoomDatabase __db) {
     this.__db = __db;
@@ -63,6 +69,32 @@ public final class StudySessionDao_Impl implements StudySessionDao {
         statement.bindString(7, _tmp_1);
       }
     };
+    this.__updateAdapterOfStudySessionEntity = new EntityDeletionOrUpdateAdapter<StudySessionEntity>(__db) {
+      @Override
+      @NonNull
+      protected String createQuery() {
+        return "UPDATE OR ABORT `study_sessions` SET `sessionId` = ?,`userId` = ?,`taskId` = ?,`startTime` = ?,`durationMins` = ?,`completed` = ?,`syncStatus` = ? WHERE `sessionId` = ?";
+      }
+
+      @Override
+      protected void bind(@NonNull final SupportSQLiteStatement statement,
+          @NonNull final StudySessionEntity entity) {
+        statement.bindString(1, entity.getSessionId());
+        statement.bindString(2, entity.getUserId());
+        if (entity.getTaskId() == null) {
+          statement.bindNull(3);
+        } else {
+          statement.bindString(3, entity.getTaskId());
+        }
+        statement.bindLong(4, entity.getStartTime());
+        statement.bindLong(5, entity.getDurationMins());
+        final int _tmp = entity.getCompleted() ? 1 : 0;
+        statement.bindLong(6, _tmp);
+        final String _tmp_1 = __converters.fromSyncStatus(entity.getSyncStatus());
+        statement.bindString(7, _tmp_1);
+        statement.bindString(8, entity.getSessionId());
+      }
+    };
   }
 
   @Override
@@ -85,9 +117,125 @@ public final class StudySessionDao_Impl implements StudySessionDao {
   }
 
   @Override
-  public Object getSessionsForUser(final String userId,
+  public Object update(final StudySessionEntity session,
+      final Continuation<? super Unit> $completion) {
+    return CoroutinesRoom.execute(__db, true, new Callable<Unit>() {
+      @Override
+      @NonNull
+      public Unit call() throws Exception {
+        __db.beginTransaction();
+        try {
+          __updateAdapterOfStudySessionEntity.handle(session);
+          __db.setTransactionSuccessful();
+          return Unit.INSTANCE;
+        } finally {
+          __db.endTransaction();
+        }
+      }
+    }, $completion);
+  }
+
+  @Override
+  public LiveData<List<StudySessionEntity>> observeCompletedSessions(final String userId) {
+    final String _sql = "SELECT * FROM study_sessions WHERE userId = ? AND completed = 1";
+    final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
+    int _argIndex = 1;
+    _statement.bindString(_argIndex, userId);
+    return __db.getInvalidationTracker().createLiveData(new String[] {"study_sessions"}, false, new Callable<List<StudySessionEntity>>() {
+      @Override
+      @Nullable
+      public List<StudySessionEntity> call() throws Exception {
+        final Cursor _cursor = DBUtil.query(__db, _statement, false, null);
+        try {
+          final int _cursorIndexOfSessionId = CursorUtil.getColumnIndexOrThrow(_cursor, "sessionId");
+          final int _cursorIndexOfUserId = CursorUtil.getColumnIndexOrThrow(_cursor, "userId");
+          final int _cursorIndexOfTaskId = CursorUtil.getColumnIndexOrThrow(_cursor, "taskId");
+          final int _cursorIndexOfStartTime = CursorUtil.getColumnIndexOrThrow(_cursor, "startTime");
+          final int _cursorIndexOfDurationMins = CursorUtil.getColumnIndexOrThrow(_cursor, "durationMins");
+          final int _cursorIndexOfCompleted = CursorUtil.getColumnIndexOrThrow(_cursor, "completed");
+          final int _cursorIndexOfSyncStatus = CursorUtil.getColumnIndexOrThrow(_cursor, "syncStatus");
+          final List<StudySessionEntity> _result = new ArrayList<StudySessionEntity>(_cursor.getCount());
+          while (_cursor.moveToNext()) {
+            final StudySessionEntity _item;
+            final String _tmpSessionId;
+            _tmpSessionId = _cursor.getString(_cursorIndexOfSessionId);
+            final String _tmpUserId;
+            _tmpUserId = _cursor.getString(_cursorIndexOfUserId);
+            final String _tmpTaskId;
+            if (_cursor.isNull(_cursorIndexOfTaskId)) {
+              _tmpTaskId = null;
+            } else {
+              _tmpTaskId = _cursor.getString(_cursorIndexOfTaskId);
+            }
+            final long _tmpStartTime;
+            _tmpStartTime = _cursor.getLong(_cursorIndexOfStartTime);
+            final int _tmpDurationMins;
+            _tmpDurationMins = _cursor.getInt(_cursorIndexOfDurationMins);
+            final boolean _tmpCompleted;
+            final int _tmp;
+            _tmp = _cursor.getInt(_cursorIndexOfCompleted);
+            _tmpCompleted = _tmp != 0;
+            final SyncStatus _tmpSyncStatus;
+            final String _tmp_1;
+            _tmp_1 = _cursor.getString(_cursorIndexOfSyncStatus);
+            _tmpSyncStatus = __converters.toSyncStatus(_tmp_1);
+            _item = new StudySessionEntity(_tmpSessionId,_tmpUserId,_tmpTaskId,_tmpStartTime,_tmpDurationMins,_tmpCompleted,_tmpSyncStatus);
+            _result.add(_item);
+          }
+          return _result;
+        } finally {
+          _cursor.close();
+        }
+      }
+
+      @Override
+      protected void finalize() {
+        _statement.release();
+      }
+    });
+  }
+
+  @Override
+  public LiveData<Integer> observePendingCount(final String userId) {
+    final String _sql = "SELECT COUNT(*) FROM study_sessions WHERE userId = ? AND syncStatus = 'PENDING'";
+    final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
+    int _argIndex = 1;
+    _statement.bindString(_argIndex, userId);
+    return __db.getInvalidationTracker().createLiveData(new String[] {"study_sessions"}, false, new Callable<Integer>() {
+      @Override
+      @Nullable
+      public Integer call() throws Exception {
+        final Cursor _cursor = DBUtil.query(__db, _statement, false, null);
+        try {
+          final Integer _result;
+          if (_cursor.moveToFirst()) {
+            final Integer _tmp;
+            if (_cursor.isNull(0)) {
+              _tmp = null;
+            } else {
+              _tmp = _cursor.getInt(0);
+            }
+            _result = _tmp;
+          } else {
+            _result = null;
+          }
+          return _result;
+        } finally {
+          _cursor.close();
+        }
+      }
+
+      @Override
+      protected void finalize() {
+        _statement.release();
+      }
+    });
+  }
+
+  @Override
+  public Object getPending(final String userId,
       final Continuation<? super List<StudySessionEntity>> $completion) {
-    final String _sql = "SELECT * FROM study_sessions WHERE userId = ? ORDER BY startTime DESC";
+    final String _sql = "SELECT * FROM study_sessions WHERE userId = ? AND syncStatus = 'PENDING'";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
     int _argIndex = 1;
     _statement.bindString(_argIndex, userId);
@@ -143,18 +291,17 @@ public final class StudySessionDao_Impl implements StudySessionDao {
   }
 
   @Override
-  public Object getSessionsBySyncStatus(final SyncStatus status,
-      final Continuation<? super List<StudySessionEntity>> $completion) {
-    final String _sql = "SELECT * FROM study_sessions WHERE syncStatus = ?";
+  public Object getById(final String id,
+      final Continuation<? super StudySessionEntity> $completion) {
+    final String _sql = "SELECT * FROM study_sessions WHERE sessionId = ? LIMIT 1";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
     int _argIndex = 1;
-    final String _tmp = __converters.fromSyncStatus(status);
-    _statement.bindString(_argIndex, _tmp);
+    _statement.bindString(_argIndex, id);
     final CancellationSignal _cancellationSignal = DBUtil.createCancellationSignal();
-    return CoroutinesRoom.execute(__db, false, _cancellationSignal, new Callable<List<StudySessionEntity>>() {
+    return CoroutinesRoom.execute(__db, false, _cancellationSignal, new Callable<StudySessionEntity>() {
       @Override
-      @NonNull
-      public List<StudySessionEntity> call() throws Exception {
+      @Nullable
+      public StudySessionEntity call() throws Exception {
         final Cursor _cursor = DBUtil.query(__db, _statement, false, null);
         try {
           final int _cursorIndexOfSessionId = CursorUtil.getColumnIndexOrThrow(_cursor, "sessionId");
@@ -164,9 +311,8 @@ public final class StudySessionDao_Impl implements StudySessionDao {
           final int _cursorIndexOfDurationMins = CursorUtil.getColumnIndexOrThrow(_cursor, "durationMins");
           final int _cursorIndexOfCompleted = CursorUtil.getColumnIndexOrThrow(_cursor, "completed");
           final int _cursorIndexOfSyncStatus = CursorUtil.getColumnIndexOrThrow(_cursor, "syncStatus");
-          final List<StudySessionEntity> _result = new ArrayList<StudySessionEntity>(_cursor.getCount());
-          while (_cursor.moveToNext()) {
-            final StudySessionEntity _item;
+          final StudySessionEntity _result;
+          if (_cursor.moveToFirst()) {
             final String _tmpSessionId;
             _tmpSessionId = _cursor.getString(_cursorIndexOfSessionId);
             final String _tmpUserId;
@@ -182,15 +328,16 @@ public final class StudySessionDao_Impl implements StudySessionDao {
             final int _tmpDurationMins;
             _tmpDurationMins = _cursor.getInt(_cursorIndexOfDurationMins);
             final boolean _tmpCompleted;
-            final int _tmp_1;
-            _tmp_1 = _cursor.getInt(_cursorIndexOfCompleted);
-            _tmpCompleted = _tmp_1 != 0;
+            final int _tmp;
+            _tmp = _cursor.getInt(_cursorIndexOfCompleted);
+            _tmpCompleted = _tmp != 0;
             final SyncStatus _tmpSyncStatus;
-            final String _tmp_2;
-            _tmp_2 = _cursor.getString(_cursorIndexOfSyncStatus);
-            _tmpSyncStatus = __converters.toSyncStatus(_tmp_2);
-            _item = new StudySessionEntity(_tmpSessionId,_tmpUserId,_tmpTaskId,_tmpStartTime,_tmpDurationMins,_tmpCompleted,_tmpSyncStatus);
-            _result.add(_item);
+            final String _tmp_1;
+            _tmp_1 = _cursor.getString(_cursorIndexOfSyncStatus);
+            _tmpSyncStatus = __converters.toSyncStatus(_tmp_1);
+            _result = new StudySessionEntity(_tmpSessionId,_tmpUserId,_tmpTaskId,_tmpStartTime,_tmpDurationMins,_tmpCompleted,_tmpSyncStatus);
+          } else {
+            _result = null;
           }
           return _result;
         } finally {

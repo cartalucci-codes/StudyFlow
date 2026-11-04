@@ -1,12 +1,19 @@
 name: StudyFlow API - Build & Test
 
+# Runs the REST API's automated tests (auth, tasks, offline-sync idempotency, XP/badges,
+# validation) whenever the api/ folder changes.
 on:
   push:
     branches: [main]
-    paths: ['api/**']
+    tags: ['final-poe*']
+    paths: ['api/**', '.github/workflows/api-tests.yml']
   pull_request:
     branches: [main]
     paths: ['api/**']
+  workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
   test:

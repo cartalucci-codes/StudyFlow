@@ -8,6 +8,10 @@
         "source": "com.studyflow.app-main-53:/layout/activity_login.xml"
     },
     {
+        "merged": "com.studyflow.app-mergeDebugResources-50:/layout/item_task.xml",
+        "source": "com.studyflow.app-main-53:/layout/item_task.xml"
+    },
+    {
         "merged": "com.studyflow.app-mergeDebugResources-50:/layout/activity_add_edit_task.xml",
         "source": "com.studyflow.app-main-53:/layout/activity_add_edit_task.xml"
     },

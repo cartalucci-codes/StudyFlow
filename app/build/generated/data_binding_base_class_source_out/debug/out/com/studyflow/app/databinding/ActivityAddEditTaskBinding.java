@@ -5,13 +5,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.Spinner;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.ScrollView;
+import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
+import com.google.android.material.switchmaterial.SwitchMaterial;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.studyflow.app.R;
 import java.lang.NullPointerException;
 import java.lang.Override;
@@ -19,38 +23,77 @@ import java.lang.String;
 
 public final class ActivityAddEditTaskBinding implements ViewBinding {
   @NonNull
-  private final LinearLayout rootView;
+  private final ScrollView rootView;
 
   @NonNull
-  public final Button buttonPickDueDate;
+  public final Button buttonDeleteTask;
+
+  @NonNull
+  public final Button buttonPickDate;
+
+  @NonNull
+  public final Button buttonPickTime;
 
   @NonNull
   public final Button buttonSaveTask;
 
   @NonNull
-  public final EditText editSubject;
+  public final TextInputEditText inputDescription;
 
   @NonNull
-  public final EditText editTitle;
+  public final TextInputEditText inputSubject;
 
   @NonNull
-  public final Spinner spinnerPriority;
+  public final TextInputEditText inputTitle;
 
-  private ActivityAddEditTaskBinding(@NonNull LinearLayout rootView,
-      @NonNull Button buttonPickDueDate, @NonNull Button buttonSaveTask,
-      @NonNull EditText editSubject, @NonNull EditText editTitle,
-      @NonNull Spinner spinnerPriority) {
+  @NonNull
+  public final TextInputLayout layoutTitle;
+
+  @NonNull
+  public final RadioGroup radioGroupPriority;
+
+  @NonNull
+  public final RadioButton radioHigh;
+
+  @NonNull
+  public final RadioButton radioLow;
+
+  @NonNull
+  public final RadioButton radioMed;
+
+  @NonNull
+  public final SwitchMaterial switchReminder;
+
+  @NonNull
+  public final TextView textScreenTitle;
+
+  private ActivityAddEditTaskBinding(@NonNull ScrollView rootView, @NonNull Button buttonDeleteTask,
+      @NonNull Button buttonPickDate, @NonNull Button buttonPickTime,
+      @NonNull Button buttonSaveTask, @NonNull TextInputEditText inputDescription,
+      @NonNull TextInputEditText inputSubject, @NonNull TextInputEditText inputTitle,
+      @NonNull TextInputLayout layoutTitle, @NonNull RadioGroup radioGroupPriority,
+      @NonNull RadioButton radioHigh, @NonNull RadioButton radioLow, @NonNull RadioButton radioMed,
+      @NonNull SwitchMaterial switchReminder, @NonNull TextView textScreenTitle) {
     this.rootView = rootView;
-    this.buttonPickDueDate = buttonPickDueDate;
+    this.buttonDeleteTask = buttonDeleteTask;
+    this.buttonPickDate = buttonPickDate;
+    this.buttonPickTime = buttonPickTime;
     this.buttonSaveTask = buttonSaveTask;
-    this.editSubject = editSubject;
-    this.editTitle = editTitle;
-    this.spinnerPriority = spinnerPriority;
+    this.inputDescription = inputDescription;
+    this.inputSubject = inputSubject;
+    this.inputTitle = inputTitle;
+    this.layoutTitle = layoutTitle;
+    this.radioGroupPriority = radioGroupPriority;
+    this.radioHigh = radioHigh;
+    this.radioLow = radioLow;
+    this.radioMed = radioMed;
+    this.switchReminder = switchReminder;
+    this.textScreenTitle = textScreenTitle;
   }
 
   @Override
   @NonNull
-  public LinearLayout getRoot() {
+  public ScrollView getRoot() {
     return rootView;
   }
 
@@ -75,9 +118,21 @@ public final class ActivityAddEditTaskBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
-      id = R.id.buttonPickDueDate;
-      Button buttonPickDueDate = ViewBindings.findChildViewById(rootView, id);
-      if (buttonPickDueDate == null) {
+      id = R.id.buttonDeleteTask;
+      Button buttonDeleteTask = ViewBindings.findChildViewById(rootView, id);
+      if (buttonDeleteTask == null) {
+        break missingId;
+      }
+
+      id = R.id.buttonPickDate;
+      Button buttonPickDate = ViewBindings.findChildViewById(rootView, id);
+      if (buttonPickDate == null) {
+        break missingId;
+      }
+
+      id = R.id.buttonPickTime;
+      Button buttonPickTime = ViewBindings.findChildViewById(rootView, id);
+      if (buttonPickTime == null) {
         break missingId;
       }
 
@@ -87,26 +142,69 @@ public final class ActivityAddEditTaskBinding implements ViewBinding {
         break missingId;
       }
 
-      id = R.id.editSubject;
-      EditText editSubject = ViewBindings.findChildViewById(rootView, id);
-      if (editSubject == null) {
+      id = R.id.inputDescription;
+      TextInputEditText inputDescription = ViewBindings.findChildViewById(rootView, id);
+      if (inputDescription == null) {
         break missingId;
       }
 
-      id = R.id.editTitle;
-      EditText editTitle = ViewBindings.findChildViewById(rootView, id);
-      if (editTitle == null) {
+      id = R.id.inputSubject;
+      TextInputEditText inputSubject = ViewBindings.findChildViewById(rootView, id);
+      if (inputSubject == null) {
         break missingId;
       }
 
-      id = R.id.spinnerPriority;
-      Spinner spinnerPriority = ViewBindings.findChildViewById(rootView, id);
-      if (spinnerPriority == null) {
+      id = R.id.inputTitle;
+      TextInputEditText inputTitle = ViewBindings.findChildViewById(rootView, id);
+      if (inputTitle == null) {
         break missingId;
       }
 
-      return new ActivityAddEditTaskBinding((LinearLayout) rootView, buttonPickDueDate,
-          buttonSaveTask, editSubject, editTitle, spinnerPriority);
+      id = R.id.layoutTitle;
+      TextInputLayout layoutTitle = ViewBindings.findChildViewById(rootView, id);
+      if (layoutTitle == null) {
+        break missingId;
+      }
+
+      id = R.id.radioGroupPriority;
+      RadioGroup radioGroupPriority = ViewBindings.findChildViewById(rootView, id);
+      if (radioGroupPriority == null) {
+        break missingId;
+      }
+
+      id = R.id.radioHigh;
+      RadioButton radioHigh = ViewBindings.findChildViewById(rootView, id);
+      if (radioHigh == null) {
+        break missingId;
+      }
+
+      id = R.id.radioLow;
+      RadioButton radioLow = ViewBindings.findChildViewById(rootView, id);
+      if (radioLow == null) {
+        break missingId;
+      }
+
+      id = R.id.radioMed;
+      RadioButton radioMed = ViewBindings.findChildViewById(rootView, id);
+      if (radioMed == null) {
+        break missingId;
+      }
+
+      id = R.id.switchReminder;
+      SwitchMaterial switchReminder = ViewBindings.findChildViewById(rootView, id);
+      if (switchReminder == null) {
+        break missingId;
+      }
+
+      id = R.id.textScreenTitle;
+      TextView textScreenTitle = ViewBindings.findChildViewById(rootView, id);
+      if (textScreenTitle == null) {
+        break missingId;
+      }
+
+      return new ActivityAddEditTaskBinding((ScrollView) rootView, buttonDeleteTask, buttonPickDate,
+          buttonPickTime, buttonSaveTask, inputDescription, inputSubject, inputTitle, layoutTitle,
+          radioGroupPriority, radioHigh, radioLow, radioMed, switchReminder, textScreenTitle);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

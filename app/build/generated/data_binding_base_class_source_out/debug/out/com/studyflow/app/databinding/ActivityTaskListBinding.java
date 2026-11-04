@@ -4,6 +4,9 @@ package com.studyflow.app.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CalendarView;
+import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
@@ -21,16 +24,39 @@ public final class ActivityTaskListBinding implements ViewBinding {
   private final CoordinatorLayout rootView;
 
   @NonNull
+  public final Button buttonShowAll;
+
+  @NonNull
+  public final CalendarView calendarView;
+
+  @NonNull
   public final FloatingActionButton fabAddTask;
 
   @NonNull
   public final RecyclerView recyclerTasks;
 
+  @NonNull
+  public final TextView textEmpty;
+
+  @NonNull
+  public final TextView textOfflineBanner;
+
+  @NonNull
+  public final TextView textSelectedDay;
+
   private ActivityTaskListBinding(@NonNull CoordinatorLayout rootView,
-      @NonNull FloatingActionButton fabAddTask, @NonNull RecyclerView recyclerTasks) {
+      @NonNull Button buttonShowAll, @NonNull CalendarView calendarView,
+      @NonNull FloatingActionButton fabAddTask, @NonNull RecyclerView recyclerTasks,
+      @NonNull TextView textEmpty, @NonNull TextView textOfflineBanner,
+      @NonNull TextView textSelectedDay) {
     this.rootView = rootView;
+    this.buttonShowAll = buttonShowAll;
+    this.calendarView = calendarView;
     this.fabAddTask = fabAddTask;
     this.recyclerTasks = recyclerTasks;
+    this.textEmpty = textEmpty;
+    this.textOfflineBanner = textOfflineBanner;
+    this.textSelectedDay = textSelectedDay;
   }
 
   @Override
@@ -60,6 +86,18 @@ public final class ActivityTaskListBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
+      id = R.id.buttonShowAll;
+      Button buttonShowAll = ViewBindings.findChildViewById(rootView, id);
+      if (buttonShowAll == null) {
+        break missingId;
+      }
+
+      id = R.id.calendarView;
+      CalendarView calendarView = ViewBindings.findChildViewById(rootView, id);
+      if (calendarView == null) {
+        break missingId;
+      }
+
       id = R.id.fabAddTask;
       FloatingActionButton fabAddTask = ViewBindings.findChildViewById(rootView, id);
       if (fabAddTask == null) {
@@ -72,7 +110,26 @@ public final class ActivityTaskListBinding implements ViewBinding {
         break missingId;
       }
 
-      return new ActivityTaskListBinding((CoordinatorLayout) rootView, fabAddTask, recyclerTasks);
+      id = R.id.textEmpty;
+      TextView textEmpty = ViewBindings.findChildViewById(rootView, id);
+      if (textEmpty == null) {
+        break missingId;
+      }
+
+      id = R.id.textOfflineBanner;
+      TextView textOfflineBanner = ViewBindings.findChildViewById(rootView, id);
+      if (textOfflineBanner == null) {
+        break missingId;
+      }
+
+      id = R.id.textSelectedDay;
+      TextView textSelectedDay = ViewBindings.findChildViewById(rootView, id);
+      if (textSelectedDay == null) {
+        break missingId;
+      }
+
+      return new ActivityTaskListBinding((CoordinatorLayout) rootView, buttonShowAll, calendarView,
+          fabAddTask, recyclerTasks, textEmpty, textOfflineBanner, textSelectedDay);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

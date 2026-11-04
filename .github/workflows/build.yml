@@ -1,12 +1,19 @@
 name: Android Build and Test
 
+# Runs on every push/PR to main (and on the final-poe tag): runs the unit tests and builds the APK
+# on a clean machine, proving the app builds on more than just the developer's computer.
 on:
   push:
     branches: [ main ]
-    paths-ignore: [ 'api/**' ]
+    tags: [ 'final-poe*' ]
+    paths-ignore: [ 'api/**', '*.md' ]
   pull_request:
     branches: [ main ]
-    paths-ignore: [ 'api/**' ]
+    paths-ignore: [ 'api/**', '*.md' ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
   build:
@@ -22,6 +29,24 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
+      - name: Set up Gradle (with dependency caching)
+        uses: gradle/actions/setup-gradle@v4
+
+      # google-services.json holds the Firebase project's config and is not committed. If you add it
+      # as a repository secret (GOOGLE_SERVICES_JSON) CI uses it; otherwise a placeholder is written so
+      # the build still succeeds (push notifications just won't work in the CI-built APK).
+      - name: Provide google-services.json
+        env:
+          GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
+        run: |
+          if [ -n "$GOOGLE_SERVICES_JSON" ]; then
+            echo "$GOOGLE_SERVICES_JSON" > app/google-services.json
+            echo "Using google-services.json from repository secret"
+          else
+            echo '{"project_info":{"project_number":"000000000000","project_id":"studyflow-ci","storage_bucket":"studyflow-ci.appspot.com"},"client":[{"client_info":{"mobilesdk_app_id":"1:000000000000:android:0000000000000000","android_client_info":{"package_name":"com.studyflow.app"}},"api_key":[{"current_key":"AIzaSyDUMMYDUMMYDUMMYDUMMYDUMMYDUMMY00"}],"services":{"appinvite_service":{"other_platform_oauth_client":[]}}}],"configuration_version":"1"}' > app/google-services.json
+            echo "Using placeholder google-services.json"
+          fi
+
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
@@ -31,7 +56,14 @@ jobs:
       - name: Build debug APK
         run: ./gradlew assembleDebug
 
-      - name: Upload APK artifact
+      - name: Upload unit test report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: unit-test-report
+          path: app/build/reports/tests/testDebugUnitTest/
+
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: studyflow-debug-apk

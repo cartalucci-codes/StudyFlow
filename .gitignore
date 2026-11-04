@@ -10,8 +10,14 @@
 local.properties
 google-services.json
 
+# Release signing - NEVER commit these
+keystore.properties
+*.jks
+*.keystore
+
 # api/ subfolder (Node.js backend)
 api/node_modules/
 api/.env
 api/*.sqlite
 api/coverage/
+api/firebase-service-account.json

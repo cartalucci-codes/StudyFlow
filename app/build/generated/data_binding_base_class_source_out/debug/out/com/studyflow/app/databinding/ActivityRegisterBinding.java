@@ -5,12 +5,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ScrollView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
+import com.google.android.material.progressindicator.LinearProgressIndicator;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.studyflow.app.R;
 import java.lang.NullPointerException;
 import java.lang.Override;
@@ -24,26 +26,49 @@ public final class ActivityRegisterBinding implements ViewBinding {
   public final Button buttonRegister;
 
   @NonNull
-  public final EditText editConfirmPassword;
+  public final TextInputEditText inputConfirmPassword;
 
   @NonNull
-  public final EditText editEmail;
+  public final TextInputEditText inputEmail;
 
   @NonNull
-  public final EditText editName;
+  public final TextInputEditText inputName;
 
   @NonNull
-  public final EditText editPassword;
+  public final TextInputEditText inputPassword;
+
+  @NonNull
+  public final TextInputLayout layoutConfirmPassword;
+
+  @NonNull
+  public final TextInputLayout layoutEmail;
+
+  @NonNull
+  public final TextInputLayout layoutName;
+
+  @NonNull
+  public final TextInputLayout layoutPassword;
+
+  @NonNull
+  public final LinearProgressIndicator progressLoading;
 
   private ActivityRegisterBinding(@NonNull ScrollView rootView, @NonNull Button buttonRegister,
-      @NonNull EditText editConfirmPassword, @NonNull EditText editEmail,
-      @NonNull EditText editName, @NonNull EditText editPassword) {
+      @NonNull TextInputEditText inputConfirmPassword, @NonNull TextInputEditText inputEmail,
+      @NonNull TextInputEditText inputName, @NonNull TextInputEditText inputPassword,
+      @NonNull TextInputLayout layoutConfirmPassword, @NonNull TextInputLayout layoutEmail,
+      @NonNull TextInputLayout layoutName, @NonNull TextInputLayout layoutPassword,
+      @NonNull LinearProgressIndicator progressLoading) {
     this.rootView = rootView;
     this.buttonRegister = buttonRegister;
-    this.editConfirmPassword = editConfirmPassword;
-    this.editEmail = editEmail;
-    this.editName = editName;
-    this.editPassword = editPassword;
+    this.inputConfirmPassword = inputConfirmPassword;
+    this.inputEmail = inputEmail;
+    this.inputName = inputName;
+    this.inputPassword = inputPassword;
+    this.layoutConfirmPassword = layoutConfirmPassword;
+    this.layoutEmail = layoutEmail;
+    this.layoutName = layoutName;
+    this.layoutPassword = layoutPassword;
+    this.progressLoading = progressLoading;
   }
 
   @Override
@@ -79,32 +104,63 @@ public final class ActivityRegisterBinding implements ViewBinding {
         break missingId;
       }
 
-      id = R.id.editConfirmPassword;
-      EditText editConfirmPassword = ViewBindings.findChildViewById(rootView, id);
-      if (editConfirmPassword == null) {
+      id = R.id.inputConfirmPassword;
+      TextInputEditText inputConfirmPassword = ViewBindings.findChildViewById(rootView, id);
+      if (inputConfirmPassword == null) {
         break missingId;
       }
 
-      id = R.id.editEmail;
-      EditText editEmail = ViewBindings.findChildViewById(rootView, id);
-      if (editEmail == null) {
+      id = R.id.inputEmail;
+      TextInputEditText inputEmail = ViewBindings.findChildViewById(rootView, id);
+      if (inputEmail == null) {
         break missingId;
       }
 
-      id = R.id.editName;
-      EditText editName = ViewBindings.findChildViewById(rootView, id);
-      if (editName == null) {
+      id = R.id.inputName;
+      TextInputEditText inputName = ViewBindings.findChildViewById(rootView, id);
+      if (inputName == null) {
         break missingId;
       }
 
-      id = R.id.editPassword;
-      EditText editPassword = ViewBindings.findChildViewById(rootView, id);
-      if (editPassword == null) {
+      id = R.id.inputPassword;
+      TextInputEditText inputPassword = ViewBindings.findChildViewById(rootView, id);
+      if (inputPassword == null) {
         break missingId;
       }
 
-      return new ActivityRegisterBinding((ScrollView) rootView, buttonRegister, editConfirmPassword,
-          editEmail, editName, editPassword);
+      id = R.id.layoutConfirmPassword;
+      TextInputLayout layoutConfirmPassword = ViewBindings.findChildViewById(rootView, id);
+      if (layoutConfirmPassword == null) {
+        break missingId;
+      }
+
+      id = R.id.layoutEmail;
+      TextInputLayout layoutEmail = ViewBindings.findChildViewById(rootView, id);
+      if (layoutEmail == null) {
+        break missingId;
+      }
+
+      id = R.id.layoutName;
+      TextInputLayout layoutName = ViewBindings.findChildViewById(rootView, id);
+      if (layoutName == null) {
+        break missingId;
+      }
+
+      id = R.id.layoutPassword;
+      TextInputLayout layoutPassword = ViewBindings.findChildViewById(rootView, id);
+      if (layoutPassword == null) {
+        break missingId;
+      }
+
+      id = R.id.progressLoading;
+      LinearProgressIndicator progressLoading = ViewBindings.findChildViewById(rootView, id);
+      if (progressLoading == null) {
+        break missingId;
+      }
+
+      return new ActivityRegisterBinding((ScrollView) rootView, buttonRegister,
+          inputConfirmPassword, inputEmail, inputName, inputPassword, layoutConfirmPassword,
+          layoutEmail, layoutName, layoutPassword, progressLoading);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

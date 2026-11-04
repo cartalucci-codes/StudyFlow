@@ -9,8 +9,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
+import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.studyflow.app.R;
 import java.lang.NullPointerException;
 import java.lang.Override;
@@ -33,21 +35,70 @@ public final class ActivityHomeBinding implements ViewBinding {
   public final Button navTimer;
 
   @NonNull
+  public final CircularProgressIndicator progressXp;
+
+  @NonNull
+  public final RecyclerView recyclerToday;
+
+  @NonNull
+  public final TextView textAvatar;
+
+  @NonNull
+  public final TextView textBadges;
+
+  @NonNull
+  public final TextView textEmpty;
+
+  @NonNull
   public final TextView textGreeting;
+
+  @NonNull
+  public final TextView textLevel;
+
+  @NonNull
+  public final TextView textOfflineBanner;
+
+  @NonNull
+  public final TextView textStreak;
+
+  @NonNull
+  public final TextView textSyncStatus;
 
   @NonNull
   public final TextView textTaskCount;
 
+  @NonNull
+  public final TextView textXp;
+
+  @NonNull
+  public final TextView textXpToNext;
+
   private ActivityHomeBinding(@NonNull LinearLayout rootView, @NonNull Button buttonAddTask,
       @NonNull Button navCalendar, @NonNull Button navSettings, @NonNull Button navTimer,
-      @NonNull TextView textGreeting, @NonNull TextView textTaskCount) {
+      @NonNull CircularProgressIndicator progressXp, @NonNull RecyclerView recyclerToday,
+      @NonNull TextView textAvatar, @NonNull TextView textBadges, @NonNull TextView textEmpty,
+      @NonNull TextView textGreeting, @NonNull TextView textLevel,
+      @NonNull TextView textOfflineBanner, @NonNull TextView textStreak,
+      @NonNull TextView textSyncStatus, @NonNull TextView textTaskCount, @NonNull TextView textXp,
+      @NonNull TextView textXpToNext) {
     this.rootView = rootView;
     this.buttonAddTask = buttonAddTask;
     this.navCalendar = navCalendar;
     this.navSettings = navSettings;
     this.navTimer = navTimer;
+    this.progressXp = progressXp;
+    this.recyclerToday = recyclerToday;
+    this.textAvatar = textAvatar;
+    this.textBadges = textBadges;
+    this.textEmpty = textEmpty;
     this.textGreeting = textGreeting;
+    this.textLevel = textLevel;
+    this.textOfflineBanner = textOfflineBanner;
+    this.textStreak = textStreak;
+    this.textSyncStatus = textSyncStatus;
     this.textTaskCount = textTaskCount;
+    this.textXp = textXp;
+    this.textXpToNext = textXpToNext;
   }
 
   @Override
@@ -101,9 +152,63 @@ public final class ActivityHomeBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.progressXp;
+      CircularProgressIndicator progressXp = ViewBindings.findChildViewById(rootView, id);
+      if (progressXp == null) {
+        break missingId;
+      }
+
+      id = R.id.recyclerToday;
+      RecyclerView recyclerToday = ViewBindings.findChildViewById(rootView, id);
+      if (recyclerToday == null) {
+        break missingId;
+      }
+
+      id = R.id.textAvatar;
+      TextView textAvatar = ViewBindings.findChildViewById(rootView, id);
+      if (textAvatar == null) {
+        break missingId;
+      }
+
+      id = R.id.textBadges;
+      TextView textBadges = ViewBindings.findChildViewById(rootView, id);
+      if (textBadges == null) {
+        break missingId;
+      }
+
+      id = R.id.textEmpty;
+      TextView textEmpty = ViewBindings.findChildViewById(rootView, id);
+      if (textEmpty == null) {
+        break missingId;
+      }
+
       id = R.id.textGreeting;
       TextView textGreeting = ViewBindings.findChildViewById(rootView, id);
       if (textGreeting == null) {
+        break missingId;
+      }
+
+      id = R.id.textLevel;
+      TextView textLevel = ViewBindings.findChildViewById(rootView, id);
+      if (textLevel == null) {
+        break missingId;
+      }
+
+      id = R.id.textOfflineBanner;
+      TextView textOfflineBanner = ViewBindings.findChildViewById(rootView, id);
+      if (textOfflineBanner == null) {
+        break missingId;
+      }
+
+      id = R.id.textStreak;
+      TextView textStreak = ViewBindings.findChildViewById(rootView, id);
+      if (textStreak == null) {
+        break missingId;
+      }
+
+      id = R.id.textSyncStatus;
+      TextView textSyncStatus = ViewBindings.findChildViewById(rootView, id);
+      if (textSyncStatus == null) {
         break missingId;
       }
 
@@ -113,8 +218,22 @@ public final class ActivityHomeBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.textXp;
+      TextView textXp = ViewBindings.findChildViewById(rootView, id);
+      if (textXp == null) {
+        break missingId;
+      }
+
+      id = R.id.textXpToNext;
+      TextView textXpToNext = ViewBindings.findChildViewById(rootView, id);
+      if (textXpToNext == null) {
+        break missingId;
+      }
+
       return new ActivityHomeBinding((LinearLayout) rootView, buttonAddTask, navCalendar,
-          navSettings, navTimer, textGreeting, textTaskCount);
+          navSettings, navTimer, progressXp, recyclerToday, textAvatar, textBadges, textEmpty,
+          textGreeting, textLevel, textOfflineBanner, textStreak, textSyncStatus, textTaskCount,
+          textXp, textXpToNext);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

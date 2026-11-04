@@ -5,13 +5,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
 import com.google.android.material.switchmaterial.SwitchMaterial;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.studyflow.app.R;
 import java.lang.NullPointerException;
 import java.lang.Override;
@@ -19,37 +22,82 @@ import java.lang.String;
 
 public final class ActivitySettingsBinding implements ViewBinding {
   @NonNull
-  private final LinearLayout rootView;
+  private final ScrollView rootView;
+
+  @NonNull
+  public final Button buttonDeleteAccount;
 
   @NonNull
   public final Button buttonLogout;
 
   @NonNull
+  public final Button buttonReminderTime;
+
+  @NonNull
   public final Button buttonSaveSettings;
+
+  @NonNull
+  public final Button buttonSyncNow;
+
+  @NonNull
+  public final Button buttonTestNotification;
+
+  @NonNull
+  public final TextInputEditText inputDisplayName;
+
+  @NonNull
+  public final TextInputLayout layoutDisplayName;
+
+  @NonNull
+  public final Spinner spinnerAvatar;
 
   @NonNull
   public final Spinner spinnerLanguage;
 
   @NonNull
+  public final SwitchMaterial switchDaily;
+
+  @NonNull
   public final SwitchMaterial switchDarkTheme;
 
   @NonNull
-  public final SwitchMaterial switchNotifications;
+  public final SwitchMaterial switchDeadlines;
 
-  private ActivitySettingsBinding(@NonNull LinearLayout rootView, @NonNull Button buttonLogout,
-      @NonNull Button buttonSaveSettings, @NonNull Spinner spinnerLanguage,
-      @NonNull SwitchMaterial switchDarkTheme, @NonNull SwitchMaterial switchNotifications) {
+  @NonNull
+  public final TextView textSyncDetails;
+
+  @NonNull
+  public final TextView textVersion;
+
+  private ActivitySettingsBinding(@NonNull ScrollView rootView, @NonNull Button buttonDeleteAccount,
+      @NonNull Button buttonLogout, @NonNull Button buttonReminderTime,
+      @NonNull Button buttonSaveSettings, @NonNull Button buttonSyncNow,
+      @NonNull Button buttonTestNotification, @NonNull TextInputEditText inputDisplayName,
+      @NonNull TextInputLayout layoutDisplayName, @NonNull Spinner spinnerAvatar,
+      @NonNull Spinner spinnerLanguage, @NonNull SwitchMaterial switchDaily,
+      @NonNull SwitchMaterial switchDarkTheme, @NonNull SwitchMaterial switchDeadlines,
+      @NonNull TextView textSyncDetails, @NonNull TextView textVersion) {
     this.rootView = rootView;
+    this.buttonDeleteAccount = buttonDeleteAccount;
     this.buttonLogout = buttonLogout;
+    this.buttonReminderTime = buttonReminderTime;
     this.buttonSaveSettings = buttonSaveSettings;
+    this.buttonSyncNow = buttonSyncNow;
+    this.buttonTestNotification = buttonTestNotification;
+    this.inputDisplayName = inputDisplayName;
+    this.layoutDisplayName = layoutDisplayName;
+    this.spinnerAvatar = spinnerAvatar;
     this.spinnerLanguage = spinnerLanguage;
+    this.switchDaily = switchDaily;
     this.switchDarkTheme = switchDarkTheme;
-    this.switchNotifications = switchNotifications;
+    this.switchDeadlines = switchDeadlines;
+    this.textSyncDetails = textSyncDetails;
+    this.textVersion = textVersion;
   }
 
   @Override
   @NonNull
-  public LinearLayout getRoot() {
+  public ScrollView getRoot() {
     return rootView;
   }
 
@@ -74,9 +122,21 @@ public final class ActivitySettingsBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
+      id = R.id.buttonDeleteAccount;
+      Button buttonDeleteAccount = ViewBindings.findChildViewById(rootView, id);
+      if (buttonDeleteAccount == null) {
+        break missingId;
+      }
+
       id = R.id.buttonLogout;
       Button buttonLogout = ViewBindings.findChildViewById(rootView, id);
       if (buttonLogout == null) {
+        break missingId;
+      }
+
+      id = R.id.buttonReminderTime;
+      Button buttonReminderTime = ViewBindings.findChildViewById(rootView, id);
+      if (buttonReminderTime == null) {
         break missingId;
       }
 
@@ -86,9 +146,45 @@ public final class ActivitySettingsBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.buttonSyncNow;
+      Button buttonSyncNow = ViewBindings.findChildViewById(rootView, id);
+      if (buttonSyncNow == null) {
+        break missingId;
+      }
+
+      id = R.id.buttonTestNotification;
+      Button buttonTestNotification = ViewBindings.findChildViewById(rootView, id);
+      if (buttonTestNotification == null) {
+        break missingId;
+      }
+
+      id = R.id.inputDisplayName;
+      TextInputEditText inputDisplayName = ViewBindings.findChildViewById(rootView, id);
+      if (inputDisplayName == null) {
+        break missingId;
+      }
+
+      id = R.id.layoutDisplayName;
+      TextInputLayout layoutDisplayName = ViewBindings.findChildViewById(rootView, id);
+      if (layoutDisplayName == null) {
+        break missingId;
+      }
+
+      id = R.id.spinnerAvatar;
+      Spinner spinnerAvatar = ViewBindings.findChildViewById(rootView, id);
+      if (spinnerAvatar == null) {
+        break missingId;
+      }
+
       id = R.id.spinnerLanguage;
       Spinner spinnerLanguage = ViewBindings.findChildViewById(rootView, id);
       if (spinnerLanguage == null) {
+        break missingId;
+      }
+
+      id = R.id.switchDaily;
+      SwitchMaterial switchDaily = ViewBindings.findChildViewById(rootView, id);
+      if (switchDaily == null) {
         break missingId;
       }
 
@@ -98,14 +194,28 @@ public final class ActivitySettingsBinding implements ViewBinding {
         break missingId;
       }
 
-      id = R.id.switchNotifications;
-      SwitchMaterial switchNotifications = ViewBindings.findChildViewById(rootView, id);
-      if (switchNotifications == null) {
+      id = R.id.switchDeadlines;
+      SwitchMaterial switchDeadlines = ViewBindings.findChildViewById(rootView, id);
+      if (switchDeadlines == null) {
         break missingId;
       }
 
-      return new ActivitySettingsBinding((LinearLayout) rootView, buttonLogout, buttonSaveSettings,
-          spinnerLanguage, switchDarkTheme, switchNotifications);
+      id = R.id.textSyncDetails;
+      TextView textSyncDetails = ViewBindings.findChildViewById(rootView, id);
+      if (textSyncDetails == null) {
+        break missingId;
+      }
+
+      id = R.id.textVersion;
+      TextView textVersion = ViewBindings.findChildViewById(rootView, id);
+      if (textVersion == null) {
+        break missingId;
+      }
+
+      return new ActivitySettingsBinding((ScrollView) rootView, buttonDeleteAccount, buttonLogout,
+          buttonReminderTime, buttonSaveSettings, buttonSyncNow, buttonTestNotification,
+          inputDisplayName, layoutDisplayName, spinnerAvatar, spinnerLanguage, switchDaily,
+          switchDarkTheme, switchDeadlines, textSyncDetails, textVersion);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

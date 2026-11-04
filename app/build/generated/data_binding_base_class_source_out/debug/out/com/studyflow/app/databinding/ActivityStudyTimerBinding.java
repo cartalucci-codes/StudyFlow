@@ -5,12 +5,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
+import android.widget.ScrollView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
+import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.studyflow.app.R;
 import java.lang.NullPointerException;
 import java.lang.Override;
@@ -18,7 +20,7 @@ import java.lang.String;
 
 public final class ActivityStudyTimerBinding implements ViewBinding {
   @NonNull
-  private final LinearLayout rootView;
+  private final ScrollView rootView;
 
   @NonNull
   public final Button buttonEndSession;
@@ -27,20 +29,32 @@ public final class ActivityStudyTimerBinding implements ViewBinding {
   public final Button buttonStartPause;
 
   @NonNull
+  public final CircularProgressIndicator progressTimer;
+
+  @NonNull
+  public final Spinner spinnerDuration;
+
+  @NonNull
+  public final Spinner spinnerTask;
+
+  @NonNull
   public final TextView textTimer;
 
-  private ActivityStudyTimerBinding(@NonNull LinearLayout rootView,
-      @NonNull Button buttonEndSession, @NonNull Button buttonStartPause,
-      @NonNull TextView textTimer) {
+  private ActivityStudyTimerBinding(@NonNull ScrollView rootView, @NonNull Button buttonEndSession,
+      @NonNull Button buttonStartPause, @NonNull CircularProgressIndicator progressTimer,
+      @NonNull Spinner spinnerDuration, @NonNull Spinner spinnerTask, @NonNull TextView textTimer) {
     this.rootView = rootView;
     this.buttonEndSession = buttonEndSession;
     this.buttonStartPause = buttonStartPause;
+    this.progressTimer = progressTimer;
+    this.spinnerDuration = spinnerDuration;
+    this.spinnerTask = spinnerTask;
     this.textTimer = textTimer;
   }
 
   @Override
   @NonNull
-  public LinearLayout getRoot() {
+  public ScrollView getRoot() {
     return rootView;
   }
 
@@ -77,14 +91,32 @@ public final class ActivityStudyTimerBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.progressTimer;
+      CircularProgressIndicator progressTimer = ViewBindings.findChildViewById(rootView, id);
+      if (progressTimer == null) {
+        break missingId;
+      }
+
+      id = R.id.spinnerDuration;
+      Spinner spinnerDuration = ViewBindings.findChildViewById(rootView, id);
+      if (spinnerDuration == null) {
+        break missingId;
+      }
+
+      id = R.id.spinnerTask;
+      Spinner spinnerTask = ViewBindings.findChildViewById(rootView, id);
+      if (spinnerTask == null) {
+        break missingId;
+      }
+
       id = R.id.textTimer;
       TextView textTimer = ViewBindings.findChildViewById(rootView, id);
       if (textTimer == null) {
         break missingId;
       }
 
-      return new ActivityStudyTimerBinding((LinearLayout) rootView, buttonEndSession,
-          buttonStartPause, textTimer);
+      return new ActivityStudyTimerBinding((ScrollView) rootView, buttonEndSession,
+          buttonStartPause, progressTimer, spinnerDuration, spinnerTask, textTimer);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

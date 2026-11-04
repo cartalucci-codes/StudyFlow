@@ -4,7 +4,7 @@
             "outputFile": "com.studyflow.app-mergeDebugResources-49:/values-watch-v20/values-watch-v20.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\crjoh\\.gradle\\caches\\transforms-4\\bc1d7b138f25c35605a0e7fe78443811\\transformed\\play-services-auth-21.2.0\\res\\values-watch-v20\\values.xml",
+                    "source": "C:\\Users\\crjoh\\.gradle\\caches\\8.11.1\\transforms\\0e1e779488014f086eb9787631066cbf\\transformed\\play-services-auth-21.2.0\\res\\values-watch-v20\\values.xml",
                     "from": {
                         "startLines": "4,5,6,7,8,9,10,11",
                         "startColumns": "0,0,0,0,0,0,0,0",
@@ -21,7 +21,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\crjoh\\.gradle\\caches\\transforms-4\\2e23c56631c12ee0266886cf361b4982\\transformed\\appcompat-1.7.0\\res\\values-watch-v20\\values-watch-v20.xml",
+                    "source": "C:\\Users\\crjoh\\.gradle\\caches\\8.11.1\\transforms\\cea280d0a5d14d01f226941c979e0a08\\transformed\\appcompat-1.7.0\\res\\values-watch-v20\\values-watch-v20.xml",
                     "from": {
                         "startLines": "2,5,8",
                         "startColumns": "4,4,4",
